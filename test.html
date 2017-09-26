@@ -1,0 +1,102 @@
+	<!doctype html>
+<html>
+	<head>
+		<title>finAnalyzer</title>
+		
+		<meta name="finAnalyzer" content="finAnalyzer">
+
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.0/Chart.bundle.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.0/Chart.bundle.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.0/Chart.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.0/Chart.min.js"></script>
+
+		<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600|Oswald" rel="stylesheet">
+
+		<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+		
+
+
+	</head>
+	
+	<body style="font-family: 'Oswald', sans-serif;">			
+
+
+
+				<div id="customer-classification" >
+								<div class = "row" style="margin: 50px 0px 50px 0px">
+									
+									<div class="col-xs-offset-1 col-xs-5">
+										
+										<canvas id="canvas-bbc"></canvas>
+
+										<script> 
+
+											$.get("./viz-categories/bucket.json").then(function(data) {
+
+												var dataparsed = JSON.parse(data);
+											  	
+											  	var keys = Object.keys(dataparsed);
+											  	var values = Object.values(dataparsed);
+
+											  	var barChartData = {
+										            labels: keys,
+										            datasets: [{
+										            	label: "Frequency",
+									          	      	backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#c45850"],
+									                	//borderWidth: 1,
+									               	 	data: values
+										            }] 
+												};
+
+												var ctxbbc = document.getElementById("canvas-bbc").getContext("2d");
+									            var myBar = new Chart(ctxbbc, {
+									                type: 'bar',
+									                data: barChartData,
+									                options: {
+									                    responsive: true,
+									                    legend: {
+									                        display: false,
+									                    },
+									                    title: {
+									                        display: true,
+									                        text: 'Action Categorization'
+									                    }
+									                }
+									            });
+
+									            var ctxbpc = document.getElementById("canvas-bpc").getContext("2d");
+									            var myPie = new Chart(ctxbpc, {
+									                type: 'doughnut',
+									                data: barChartData,
+									                options: {
+									                    title: {
+									                        display: true,
+									                        text: 'Action Categorization'
+									                    }
+									                }
+									            });
+
+											});
+										</script>
+
+
+									</div>
+
+									<div class="col-xs-5">
+						
+						<canvas id="canvas-bpc"></canvas>
+
+					</div>
+
+				</div>
+
+			</div>
+
+
+		</body>
+
+</html>

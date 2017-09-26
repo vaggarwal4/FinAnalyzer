@@ -1,0 +1,416 @@
+<!doctype html>
+<html>
+	<head>
+		<title>finAnalyzer</title>
+		
+		<meta name="finAnalyzer" content="finAnalyzer">
+
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.0/Chart.bundle.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.0/Chart.bundle.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.0/Chart.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.0/Chart.min.js"></script>
+
+		<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600|Oswald" rel="stylesheet">
+
+		<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+		
+
+
+	</head>
+	
+	<body style="font-family: 'Oswald', sans-serif; height: 100%">
+		
+		<div class="container-fluid">
+
+			<div class="row" id="title" style="border-color: black; border-bottom:1px solid; background-color: #1dcaff">
+				<div class="col-xs-12">
+					<h2 class="text-center name" style="
+														color: white;
+													    text-shadow:
+													    -1px -1px 0 #000,
+													    1px -1px 0 #000,
+													    -1px 1px 0 #000,
+													    1px 1px 0 #000;
+														font-size: 600%;
+														font-family: 'Oswald', sans-serif;
+														padding:15px 15px 15px 15px;
+													  ">
+						<strong>finAnalyzer</strong>
+					</h2>
+				</div>
+			</div>
+		
+			<div class="row"  style="margin: 75px 0px 75px 0px">
+				<div class="col-xs-10 col-xs-offset-1 text-center">
+					<button id="extract-btn" onclick="extFunc()" type="button" class="btn btn-primary btn-lg" style="margin-top: 10px">Extract</button>
+				</div>
+
+				<div class="col-xs-10 col-xs-offset-1 text-center" style="padding: 20px 0px 20px 0px">
+					<img id="extraction" src="img/giphy.gif" style="display: none;">
+					<h3 id="ext-success" style="display: none; font-family: 'Oswald', sans-serif;  padding: 20px 0px 20px 0px"">Extraction complete</h3>
+				</div>
+				<script>
+
+					function extFunc() {
+						location.href="#extract-btn";
+					    document.getElementById("extract-btn").classList.add('active');
+					    document.getElementById("extraction").style.display = 'inline';
+					    setTimeout(function(){ $("#extraction").slideUp(300);  }, 7000);
+					    setTimeout(function(){	document.getElementById("ext-success").style.display = 'inline'; 
+					    						document.getElementById("extract-btn").classList.remove('active');
+					    						document.getElementById("extract-btn").classList.add('disabled');
+					    						document.getElementById("process-btn").classList.remove('disabled');
+  											}, 7005);	
+
+					}
+				</script>
+			</div>
+
+			<div class="row"  style="margin: 25px 0px 75px 0px">
+				<div class="col-xs-10 col-xs-offset-1 text-center">
+					<button id="process-btn" type="button" onclick="procFunc()" class="btn btn-primary btn-lg disabled"  style="margin-top: 10px">Process</button>
+				</div>
+				<div class="col-xs-10 col-xs-offset-1 text-center" style="padding: 20px 0px 20px 0px">
+					<img id="processing" src="img/giphy.gif" style="display: none;">
+					<h3 id="proc-success" style="display: none; font-family: 'Oswald', sans-serif; padding: 20px 0px 20px 0px">Processing complete</h3>
+				</div>
+
+				<script>
+
+					function procFunc() {
+						location.href="#process-btn";
+					    document.getElementById("process-btn").classList.add('active');
+					    document.getElementById("processing").style.display = 'inline';
+					    setTimeout(function(){ $("#processing").slideUp(300); }, 7000);
+					    setTimeout(function(){	document.getElementById("proc-success").style.display = 'inline'; 
+					    						document.getElementById("process-btn").classList.remove('active');
+					    						document.getElementById("process-btn").classList.add('disabled');
+					    						document.getElementById("visualize-btn").classList.remove('disabled');
+  											}, 7005);	
+
+					}
+				</script>
+
+			</div>
+
+			<div class="row" style="margin: 25px 0px 75px 0px">
+				<div class="col-xs-10 col-xs-offset-1 text-center" >
+					<button id="visualize-btn" type="button" onclick="visFunc()" class="btn btn-primary btn-lg disabled"  style="margin-top: 10px">Visualize</button>
+				</div>
+
+				<div class="col-xs-10 col-xs-offset-1 text-center" style="padding: 20px 0px 20px 0px">
+					<!--<img id="visualization" src="img/giphy.gif"  style="display: none;"-->
+					<h3 id="vis-success" style="display: none; font-family: 'Oswald', sans-serif; padding: 20px 0px 20px 0px">Visualization complete</h3>
+				</div>
+
+				<script>
+
+					function visFunc() {
+						location.href="#visualize-btn";
+					    document.getElementById("visualize-btn").classList.add('active');
+					    //document.getElementById("visualization").style.display = 'inline';
+					    //setTimeout(function(){ $("#visualization").slideUp(300); }, 7000);
+					    document.getElementById("vis-success").style.display = 'inline'; 
+					    document.getElementById("visualize-btn").classList.remove('active');
+					    document.getElementById("visualize-btn").classList.add('disabled');
+					    document.getElementById("viz-btns").style.display = "block";
+  							
+
+					}
+				</script>
+
+			</div>
+
+			
+			<div id="viz-btns" class="text-center" style="display: none;">
+				<div class="btn-group btn-group-large" role="group" aria-label="...">
+	 				<button type="button" onclick="CCfunc()" class="btn btn-default">Customer Categorization</button>
+					<button type="button" onclick="CPfunc()" class="btn btn-default">Customer Profiling</button>
+					<button type="button" onclick="CFfunc()" class="btn btn-default">Customer Feedback</button>
+
+					<script type="text/javascript">
+						
+						function CCfunc() {
+							document.getElementById("customer-classification").style.display = 'inline';
+							document.getElementById("customer-profile").style.display = 'none';
+							document.getElementById("customer-feedback").style.display = 'none';
+						}
+
+						function CPfunc() {
+							document.getElementById("customer-classification").style.display = 'none';
+							document.getElementById("customer-profile").style.display = 'inline';
+							document.getElementById("customer-feedback").style.display = 'none';
+						}
+
+						function CFfunc() {
+							document.getElementById("customer-classification").style.display = 'none';
+							document.getElementById("customer-profile").style.display = 'none';
+							document.getElementById("customer-feedback").style.display = 'inline';
+						}
+
+
+					</script>
+
+				</div>
+			</div>
+
+
+			<div id="customer-classification" style="display: none">
+				<div class = "row" style="margin: 50px 0px 50px 0px">
+					
+					<div class="col-xs-offset-1 col-xs-5">
+						
+						<canvas id="canvas-bbc"></canvas>
+
+						<script> 
+
+							//function CCson() {
+								$.get("./viz-categories/bucket.json").then(function(data) {
+
+									var dataparsed = JSON.parse(data);
+								  	
+								  	var keys = Object.keys(dataparsed);
+								  	var values = Object.values(dataparsed);
+
+								  	var barChartData = {
+							            labels: keys,
+							            datasets: [{
+							            	label: "Frequency",
+						          	      	backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#c45850"],
+						                	//borderWidth: 1,
+						               	 	data: values
+							            }] 
+									};
+
+									var ctxbbc = document.getElementById("canvas-bbc").getContext("2d");
+						            var myBar = new Chart(ctxbbc, {
+						                type: 'bar',
+						                data: barChartData,
+						                options: {
+						                    responsive: true,
+						                    legend: {
+						                        display: false,
+						                    },
+						                    title: {
+						                        display: true,
+						                        text: 'Action Categorization'
+						                    }
+						                }
+						            });
+
+						            var ctxbpc = document.getElementById("canvas-bpc").getContext("2d");
+						            var myPie = new Chart(ctxbpc, {
+						                type: 'doughnut',
+						                data: barChartData,
+						                options: {
+						                    title: {
+						                        display: true,
+						                        text: 'Action Categorization'
+						                    }
+						                }
+						            });
+
+								});
+							//}
+						</script>
+
+
+					</div>
+
+					<div class="col-xs-5">
+						
+						<canvas id="canvas-bpc"></canvas>
+
+					</div>
+
+				</div>
+
+			</div>
+
+
+
+
+
+			<div id="customer-profile" style="display: none">
+				<div class="row" style="margin: 50px 0px 50px 0px">  
+
+					<div class="col-xs-7">
+						
+						<canvas id="canvas-scp"></canvas>
+						<script> 
+
+							$.get("./viz-categories/segmentation.json").then(function(data) {
+
+								var dataparsed = JSON.parse(data);
+							  	
+							  	var keys = Object.keys(dataparsed);
+							  	var values = Object.values(dataparsed);
+
+							  	var barChartData = {
+						            labels: keys,
+						            datasets: [{
+						            	label: "Frequency",
+					          	      	backgroundColor: ["#8e5ea2","#3cba9f"],
+					                	//borderWidth: 1,
+					               	 	data: values
+						            }] 
+								};
+
+					            var ctxscp = document.getElementById("canvas-scp").getContext("2d");
+					            var myPie = new Chart(ctxscp, {
+					                type: 'pie',
+					                data: barChartData,
+					                options: {
+					                    title: {
+					                        display: true,
+					                        text: 'Customer Activity Profiling'
+					                    }
+					                }
+					            });
+
+							});
+						</script> 
+
+					</div>
+					<div class="col-xs-3">
+
+
+						<br><br><br><br><br><br><br><br><br><br>
+						<h3><strong>Identification of the spending capacity of sample space depending on their social media financial activity.</strong></h3>
+
+					</div>
+				</div>
+
+				<div class="row" style="margin: 50px 0px 50px 0px">
+					<div class="col-xs-3 col-xs-offset-2">
+
+						<br><br><br><br><br><br><br><br><br><br>
+						<h3><strong>Identification of popularity of industries and products as per social media communication</strong></h3>
+
+					</div>
+					<div class="col-xs-7 ">
+						
+						<canvas id="canvas-pcp"></canvas>
+						<script> 
+
+							$.get("./viz-categories/potential_customer.json").then(function(data) {
+
+								var dataparsed = JSON.parse(data);
+							  	
+							  	var keys = Object.keys(dataparsed);
+							  	var values = Object.values(dataparsed);
+
+							  	var barChartData = {
+						            labels: keys,
+						            datasets: [{
+						            	label: "Frequency",
+					          	      	backgroundColor:["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850", "#ea638c", "#ffbf00", "EF5B00", "#232020", "#A9E5BB"],
+					                	//borderWidth: 1,
+					               	 	data: values
+						            }] 
+								};
+
+					            var ctxpcp = document.getElementById("canvas-pcp").getContext("2d");
+					            var myPie = new Chart(ctxpcp, {
+					                type: 'polarArea',
+					                data: barChartData,
+					                options: {
+					                    title: {					                    	
+					                        display: true,
+					                        text: 'Customer Potential Profiling'
+					                    }
+					                }
+					            });
+
+							});
+						</script> 
+						
+					</div>
+
+				</div>
+			</div>
+
+
+
+			<div id="customer-feedback" style="display: none">
+				
+				<div class = "row" style="margin: 50px 0px 50px 0px">
+					
+					<div class="col-xs-offset-1 col-xs-7">
+
+						<canvas id="canvas-cf"></canvas>
+						<script> 
+
+							var lengthPOS = 0;
+							var lengthNEG = 0;
+							
+							
+									
+								
+									var barChartData = {
+						            labels: ['negative sentiment', 'positive sentiment'],
+						            datasets: [{
+						            	label: "Frequency",
+					          	      	backgroundColor: ["#8e5ea2","#3cba9f"],
+					                	//borderWidth: 1,
+					               	 	data: [370944, 129056]
+						            	}] 
+									};
+
+									var ctxcf = document.getElementById("canvas-cf").getContext("2d");
+						            var myPie = new Chart(ctxcf, {
+						                type: 'horizontalBar',
+						                data: barChartData,
+						                options: {
+						                	legend: {
+					                        	display: false,
+					                    	},
+						                    title: {
+						                        display: true,
+						                        text: 'Customer Feedback Sentiment'
+						                    }
+						                }
+						            });
+					     
+						</script> 
+
+					</div>
+
+					<div  class="col-xs-3">
+						
+				 		
+						<br><br><br><br><br><br><br><br><br><br>
+						<h3><strong>Identification of customer sentiment in the social media communication.</strong></h3>
+
+
+					</div>
+
+				</div>
+
+
+			</div>
+			
+			<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+
+			<div class="footer row text-center" style="position:fixed;
+													   bottom: 0px;
+													   width:100%;
+													   background-color: #1dcaff;
+													   padding: 5px 10px 0px 10px;
+													   border-top: 1px solid;
+													   background-color: #1dcaff">
+				<p>Made with <span class="glyphicon glyphicon-heart-empty"></span>, <span class="glyphicon glyphicon-apple"></span> and <span class="glyphicon glyphicon-sunglasses"></span> </p>
+			</div>
+
+			
+
+
+		</div>
+
+	</body>
+</html>
